@@ -11,7 +11,7 @@ const TOOL_NAME = "songpilot.orchestrator.run";
 
 const baseUrl =
   process.env.SONGPILOT_MCP_BASE_URL?.replace(/\/$/, "") ||
-  "https://dev.songpilot.ai";
+  "https://mcp.songpilot.ai";
 const endpoint = `${baseUrl}/mcp/orchestrator/run`;
 
 const apiKey = process.env.SONGPILOT_API_KEY;

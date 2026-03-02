@@ -29,9 +29,9 @@ Examples:
 - `SONGPILOT_API_KEY` (required)
 - `SONGPILOT_WORKSPACE_ID` (required)
 - `SONGPILOT_MCP_BASE_URL` (optional)
-  - Local dev: `https://dev.songpilot.ai`
-  - Staging: `https://mcp-staging.songpilot.ai` (when available)
-  - Production: `https://mcp.songpilot.ai` (when available)
+  - Production: `https://mcp.songpilot.ai`
+  - Staging: `https://mcp-staging.songpilot.ai`
+  - (Advanced) For local/self-hosted environments, set this to your own base URL.
 
 ## Run locally
 
@@ -41,7 +41,8 @@ npm install
 
 SONGPILOT_API_KEY=sp_... \
 SONGPILOT_WORKSPACE_ID=... \
-SONGPILOT_MCP_BASE_URL=https://dev.songpilot.ai \
+# Optional: override for staging
+# SONGPILOT_MCP_BASE_URL=https://mcp-staging.songpilot.ai \
 npm start
 ```
 
@@ -58,7 +59,7 @@ Add to your `claude_desktop_config.json`:
       "env": {
         "SONGPILOT_API_KEY": "sp_...",
         "SONGPILOT_WORKSPACE_ID": "...",
-        "SONGPILOT_MCP_BASE_URL": "https://dev.songpilot.ai"
+        "SONGPILOT_MCP_BASE_URL": "https://mcp.songpilot.ai"
       }
     }
   }
