@@ -1,0 +1,6 @@
+mcp>=1.0.0
+httpx>=0.28.0
+pydantic>=2.11.0
+pydantic-settings>=2.7.0
+structlog>=25.4.0
+sentry-sdk>=2.22.0
