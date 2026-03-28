@@ -141,7 +141,6 @@ pytest tests/unit/test_client.py -v
 | `SONGPILOT_WORKSPACE_ID` | Yes | - | Your workspace ID |
 | `SONGPILOT_MCP_BASE_URL` | No | `https://mcp.songpilot.ai` | API base URL |
 | `LOG_LEVEL` | No | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |
-| `SENTRY_DSN` | No | - | Sentry DSN for error tracking |
 
 ## Troubleshooting
 
@@ -171,19 +170,3 @@ MIT License - see LICENSE file for details.
 - Documentation: https://docs.songpilot.ai
 - Issues: https://github.com/songpilotai/songpilot-mcp/issues
 - Email: support@songpilot.ai
-
-## Changelog
-
-### 0.2.0
-
-- Migrated from Node.js to Python
-- Added FastMCP framework support
-- Improved error handling and logging
-- Added Sentry integration
-- Comprehensive test coverage
-
-### 0.1.0
-
-- Initial Node.js implementation
-- Basic orchestrator integration
-- Stdio transport for Claude Desktop

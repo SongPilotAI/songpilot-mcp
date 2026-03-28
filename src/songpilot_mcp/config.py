@@ -42,16 +42,11 @@ class Settings(BaseSettings):
         alias="SONGPILOT_API_KEY_FILE",
     )
 
-    # Logging & Monitoring
+    # Logging
     log_level: str = Field(
         default="INFO",
         description="Logging level (DEBUG, INFO, WARNING, ERROR)",
         alias="LOG_LEVEL",
-    )
-    sentry_dsn: str | None = Field(
-        default=None,
-        description="Sentry DSN for error tracking",
-        alias="SENTRY_DSN",
     )
 
     @field_validator("api_key")

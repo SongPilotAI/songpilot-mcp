@@ -1,42 +1,21 @@
-"""Structured logging configuration with Sentry integration."""
+"""Structured logging configuration."""
 
 import logging
 import sys
 
-import sentry_sdk
 import structlog
-from sentry_sdk.integrations.logging import LoggingIntegration
-
-from songpilot_mcp.config import get_settings
 
 
 def setup_logging(log_level: str = "INFO") -> None:
-    """Configure structured logging with Sentry integration.
+    """Configure structured logging.
 
     This sets up:
     1. Structlog for structured JSON logging
-    2. Sentry for error tracking (if DSN configured)
-    3. Console handler with appropriate formatting
+    2. Console handler with appropriate formatting
 
     Args:
         log_level: Logging level (DEBUG, INFO, WARNING, ERROR)
     """
-    settings = get_settings()
-
-    # Configure Sentry if DSN provided
-    if settings.sentry_dsn:
-        sentry_logging = LoggingIntegration(
-            level=logging.INFO,  # Capture info and above as breadcrumbs
-            event_level=logging.ERROR,  # Send errors as events
-        )
-
-        sentry_sdk.init(
-            dsn=settings.sentry_dsn,
-            integrations=[sentry_logging],
-            traces_sample_rate=0.1,  # 10% sampling for performance
-            environment="production",
-            release=f"songpilot-mcp@{getattr(settings, 'version', '0.2.0')}",
-        )
 
     # Configure structlog
     structlog.configure(

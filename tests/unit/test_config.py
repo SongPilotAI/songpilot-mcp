@@ -53,7 +53,6 @@ class TestSettings:
 
             assert settings.base_url == "https://mcp.songpilot.ai"
             assert settings.log_level == "INFO"
-            assert settings.sentry_dsn is None
             assert settings.api_key_file is None
 
     def test_orchestrator_endpoint_property(self, clear_settings_cache):

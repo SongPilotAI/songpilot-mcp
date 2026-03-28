@@ -26,37 +26,6 @@ class TestSetupLogging:
             # Should not raise any exceptions
             setup_logging(log_level="INFO")
 
-    def test_setup_logging_with_sentry(self):
-        """Test logging configuration with Sentry DSN."""
-        get_settings.cache_clear()
-        with patch.dict(
-            os.environ,
-            {
-                "SONGPILOT_API_KEY": "sp_live_key_123456789",
-                "SONGPILOT_WORKSPACE_ID": "ws_abc123",
-                "SENTRY_DSN": "https://test@sentry.io/123",
-            },
-            clear=True,
-        ):
-            with patch("sentry_sdk.init") as mock_sentry_init:
-                setup_logging(log_level="INFO")
-                mock_sentry_init.assert_called_once()
-
-    def test_setup_logging_without_sentry(self):
-        """Test logging configuration without Sentry."""
-        get_settings.cache_clear()
-        with patch.dict(
-            os.environ,
-            {
-                "SONGPILOT_API_KEY": "sp_live_key_123456789",
-                "SONGPILOT_WORKSPACE_ID": "ws_abc123",
-            },
-            clear=True,
-        ):
-            with patch("sentry_sdk.init") as mock_sentry_init:
-                setup_logging(log_level="INFO")
-                mock_sentry_init.assert_not_called()
-
 
 class TestGetLogger:
     """Test suite for get_logger function."""
