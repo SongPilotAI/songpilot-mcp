@@ -21,6 +21,8 @@ import sys
 from typing import Any
 
 from mcp.server.fastmcp import Context, FastMCP
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from songpilot_mcp.client import SongPilotError, get_client
 from songpilot_mcp.config import get_settings
@@ -46,6 +48,18 @@ mcp = FastMCP(
     Use the run_orchestrator tool to interact with SongPilot's AI agents.
     """,
 )
+
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request: Request) -> JSONResponse:
+    """Health check endpoint for monitoring and readiness probes."""
+    return JSONResponse(
+        {
+            "status": "healthy",
+            "service": "songpilot-mcp",
+            "version": "0.2.0",
+        }
+    )
 
 
 @mcp.tool()
