@@ -28,7 +28,7 @@ jobs:
           pip install -e .
 
       - name: Check formatting with black
-        run: black --check src/ tests/
+        run: black --check --target-version py311 src/ tests/
 
       - name: Check imports with isort
         run: isort --check-only src/ tests/
