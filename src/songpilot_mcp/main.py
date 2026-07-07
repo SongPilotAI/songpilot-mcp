@@ -186,45 +186,6 @@ async def run_orchestrator(
         return error_message
 
 
-# TODO: Future Enhancement - Add Resources
-# When songpilot-agents adds resource endpoints, implement these:
-#
-# @mcp.resource("songpilot://workspace/{id}/context")
-# async def get_workspace_context(id: str) -> dict:
-#     """Get current workspace context including page, tab, focused resource."""
-#     # Fetch from songpilot-agents API
-#     pass
-#
-# @mcp.resource("songpilot://workspace/{id}/songs")
-# async def get_songs(id: str) -> list:
-#     """List all songs in the workspace."""
-#     pass
-#
-# @mcp.resource("songpilot://workspace/{id}/albums")
-# async def get_albums(id: str) -> list:
-#     """List all albums in the workspace."""
-#     pass
-
-
-# TODO: Future Enhancement - Add Specialized Tools
-# When ready to move beyond chat interface, add direct tools:
-#
-# @mcp.tool()
-# async def generate_artwork(
-#     resource_uri: str,  # songpilot://workspace/{id}/songs/{song_id}
-#     style: str = "minimal",
-#     ctx: Context = None,
-# ) -> dict:
-#     """Generate artwork for a specific song/album with progress tracking."""
-#     # Direct API call with ctx.report_progress() for long-running tasks
-#     pass
-#
-# @mcp.tool()
-# async def get_completeness_report(ctx: Context = None) -> dict:
-#     """Get workspace completeness status."""
-#     pass
-
-
 def main() -> None:
     """Entry point for the MCP server.
 

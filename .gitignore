@@ -133,3 +133,6 @@ dmypy.json
 
 # Backup directory
 songpilot-mcp-nodejs-backup/
+
+# npm (husky pre-commit tooling)
+node_modules/
