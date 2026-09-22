@@ -64,6 +64,27 @@ class TestSongPilotClient:
         assert route.called
 
     @respx.mock
+    async def test_run_orchestrator_sends_cf_access_token(self):
+        """Test the Cloudflare Access token is sent as a header when configured."""
+        from songpilot_mcp.config import get_settings
+
+        route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+            return_value=Response(
+                200,
+                json={"ok": True, "text": "hi", "session_id": "s", "artifacts": []},
+            )
+        )
+
+        with patch.dict(os.environ, {"CF_ACCESS_TOKEN": "cf-token-123"}):
+            get_settings.cache_clear()
+            try:
+                await SongPilotClient().run_orchestrator("Test message")
+            finally:
+                get_settings.cache_clear()
+
+        assert route.calls.last.request.headers["cf-access-token"] == "cf-token-123"
+
+    @respx.mock
     async def test_run_orchestrator_with_session(self, client):
         """Test orchestrator call with session ID."""
         route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(

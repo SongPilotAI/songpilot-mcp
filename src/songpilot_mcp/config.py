@@ -35,6 +35,13 @@ class Settings(BaseSettings):
         alias="SONGPILOT_WORKSPACE_ID",
     )
 
+    # Optional: Cloudflare Access token for Access-protected environments
+    cf_access_token: str | None = Field(
+        default=None,
+        description="Cloudflare Access token, sent as the cf-access-token header",
+        alias="CF_ACCESS_TOKEN",
+    )
+
     # Optional: File-based secrets (Docker secrets support)
     api_key_file: str | None = Field(
         default=None,
