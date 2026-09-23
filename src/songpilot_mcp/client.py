@@ -90,6 +90,8 @@ class SongPilotClient:
             "Authorization": f"Bearer {self.settings.effective_api_key}",
             "X-MCP-Client": "claude-desktop",
         }
+        if self.settings.cf_access_token:
+            headers["cf-access-token"] = self.settings.cf_access_token
 
         endpoint = self.settings.orchestrator_endpoint
 
