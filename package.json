@@ -1,16 +1,9 @@
 {
-  "name": "songpilot-mcp",
-  "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "bin": {
-    "songpilot-mcp": "./src/index.js"
-  },
   "scripts": {
-    "start": "node ./src/index.js",
-    "lint": "node -c ./src/index.js"
+    "prepare": "husky"
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4"
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }
