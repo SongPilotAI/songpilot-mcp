@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-commit checks..."
+
+make lint
+pytest tests/ -q
+
+echo "✅ All checks passed"
