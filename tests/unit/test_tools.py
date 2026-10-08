@@ -357,14 +357,13 @@ class TestErrorMapping:
             respx.post(f"{BASE}/api/releases/{RELEASE}/songs").mock(
                 return_value=Response(409, json={"error": self.UPSTREAM})
             )
-            content = await mcp_server.call_tool(
+            _, result = await mcp_server.call_tool(
                 "create_release",
                 {
                     "release": {"title": "X", "release_type": "single"},
                     "song_ids": [SONG],
                 },
             )
-        result = json.loads(content[0].text)
         assert result["release"] == {"id": RELEASE}
         assert "already on this release" in result["songs_error"]
 

@@ -62,7 +62,7 @@ async def get_release(release_id: UUID) -> Any:
 @mcp.tool()
 async def create_release(
     release: ReleaseCreate, song_ids: list[UUID] | None = None
-) -> Any:
+) -> dict[str, Any]:
     """Create a draft release and, optionally, add songs to it in order."""
     created = await call("POST", "/api/releases", json=release.body())
     if not song_ids:
