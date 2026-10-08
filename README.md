@@ -1,6 +1,19 @@
-# Documentation Moved
+# songpilot-mcp (archived)
 
-This file is a pointer. Canonical documentation is centralized in `songpilot-docs`.
+This adapter is retired. SongPilot now runs a hosted MCP server, so there is
+nothing to install.
 
-- Canonical doc: `../songpilot-docs/services/songpilot-mcp.md`
-- Migration map: `../songpilot-docs/reference/migration-map.md`
+To connect Claude, add a custom connector with this URL and sign in to
+SongPilot:
+
+```
+https://app.songpilot.ai/agents/mcp
+```
+
+Claude Code:
+
+```bash
+claude mcp add --transport http songpilot https://app.songpilot.ai/agents/mcp
+```
+
+Setup: https://songpilot.ai/mcp
