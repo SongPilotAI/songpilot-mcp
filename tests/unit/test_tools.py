@@ -347,6 +347,27 @@ class TestErrorMapping:
         assert "photos you uploaded" in str(exc.value)
         assert "LabelGrid" not in str(exc.value)
 
+    async def test_create_release_keeps_the_draft_when_songs_fail(self, mcp_server):
+        with respx.mock:
+            respx.post(f"{BASE}/api/releases").mock(
+                return_value=Response(
+                    201, json={"success": True, "data": {"id": RELEASE}}
+                )
+            )
+            respx.post(f"{BASE}/api/releases/{RELEASE}/songs").mock(
+                return_value=Response(409, json={"error": self.UPSTREAM})
+            )
+            content = await mcp_server.call_tool(
+                "create_release",
+                {
+                    "release": {"title": "X", "release_type": "single"},
+                    "song_ids": [SONG],
+                },
+            )
+        result = json.loads(content[0].text)
+        assert result["release"] == {"id": RELEASE}
+        assert "already on this release" in result["songs_error"]
+
     async def test_network_error(self, mcp_server):
         with respx.mock:
             respx.get(f"{BASE}/api/songs/all").mock(

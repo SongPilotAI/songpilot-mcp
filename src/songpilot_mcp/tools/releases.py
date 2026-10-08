@@ -3,6 +3,7 @@
 from typing import Any, Literal
 from uuid import UUID
 
+from mcp.server.fastmcp.exceptions import ToolError
 from pydantic import Field
 
 from songpilot_mcp.server import mcp
@@ -64,14 +65,18 @@ async def create_release(
 ) -> Any:
     """Create a draft release and, optionally, add songs to it in order."""
     created = await call("POST", "/api/releases", json=release.body())
-    songs: Any = []
-    if song_ids:
+    if not song_ids:
+        return {"release": created, "songs": []}
+    try:
         songs = await call(
             "POST",
             f"/api/releases/{created['id']}/songs",
             json={"songIds": [str(s) for s in song_ids]},
             errors=_SONGS_ERRORS,
         )
+    except ToolError as e:
+        # The draft exists; say so, so the caller fixes it instead of creating another.
+        return {"release": created, "songs": [], "songs_error": str(e)}
     return {"release": created, "songs": songs}
 
 

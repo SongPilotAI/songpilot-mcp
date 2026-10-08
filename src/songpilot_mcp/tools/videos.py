@@ -113,9 +113,4 @@ async def create_template(template: TemplateCreate) -> Any:
 @mcp.tool()
 async def update_template(template_id: UUID, changes: TemplateUpdate) -> Any:
     """Change one of the workspace's own templates. System templates cannot change."""
-    return await call(
-        "PUT",
-        f"/api/templates/{template_id}",
-        json=changes.body(),
-        errors={403: "Only the workspace's own templates can be changed."},
-    )
+    return await call("PUT", f"/api/templates/{template_id}", json=changes.body())
