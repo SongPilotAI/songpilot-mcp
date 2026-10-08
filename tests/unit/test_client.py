@@ -44,7 +44,7 @@ class TestSongPilotClient:
     async def test_run_orchestrator_success(self, client):
         """Test successful orchestrator call."""
         # Mock the endpoint
-        route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        route = respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={
@@ -68,7 +68,7 @@ class TestSongPilotClient:
         """Test the Cloudflare Access token is sent as a header when configured."""
         from songpilot_mcp.config import get_settings
 
-        route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        route = respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={"ok": True, "text": "hi", "session_id": "s", "artifacts": []},
@@ -87,7 +87,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_run_orchestrator_with_session(self, client):
         """Test orchestrator call with session ID."""
-        route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        route = respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={
@@ -108,7 +108,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_run_orchestrator_with_context(self, client):
         """Test orchestrator call with context."""
-        route = respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        route = respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={
@@ -131,7 +131,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_run_orchestrator_auth_error(self, client):
         """Test 401 authentication error handling."""
-        respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(401, text="Unauthorized")
         )
 
@@ -144,7 +144,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_run_orchestrator_server_error(self, client):
         """Test 500 server error handling."""
-        respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(500, text="Internal Server Error")
         )
 
@@ -156,7 +156,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_run_orchestrator_network_error(self, client):
         """Test network connection error handling."""
-        respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             side_effect=Exception("Connection refused")
         )
 
@@ -168,7 +168,7 @@ class TestSongPilotClient:
     @respx.mock
     async def test_session_continuity(self, client):
         """Test that session ID is maintained across calls."""
-        respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={
@@ -183,7 +183,7 @@ class TestSongPilotClient:
         await client.run_orchestrator("First message")
 
         # Change mock to verify second call uses same session
-        respx.post("https://mcp.songpilot.ai/mcp/orchestrator/run").mock(
+        respx.post("https://app.songpilot.ai/agents/mcp/orchestrator/run").mock(
             return_value=Response(
                 200,
                 json={
