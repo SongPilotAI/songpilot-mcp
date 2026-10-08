@@ -22,8 +22,11 @@ class Settings(BaseSettings):
 
     # API Configuration
     base_url: str = Field(
-        default="https://mcp.songpilot.ai",
-        description="Base URL for SongPilot API endpoints",
+        default="https://app.songpilot.ai",
+        description=(
+            "SongPilot app URL. The API is served under /api and the agents "
+            "under /agents on the same host."
+        ),
         alias="SONGPILOT_MCP_BASE_URL",
     )
     api_key: str = Field(
@@ -94,7 +97,7 @@ class Settings(BaseSettings):
     def orchestrator_endpoint(self) -> str:
         """Full URL for orchestrator endpoint."""
         base = self.base_url.rstrip("/")
-        return f"{base}/mcp/orchestrator/run"
+        return f"{base}/agents/mcp/orchestrator/run"
 
 
 @lru_cache

@@ -51,7 +51,7 @@ class TestSettings:
         ):
             settings = Settings()
 
-            assert settings.base_url == "https://mcp.songpilot.ai"
+            assert settings.base_url == "https://app.songpilot.ai"
             assert settings.log_level == "INFO"
             assert settings.api_key_file is None
 
@@ -70,7 +70,7 @@ class TestSettings:
 
             assert (
                 settings.orchestrator_endpoint
-                == "https://custom.songpilot.ai/mcp/orchestrator/run"
+                == "https://custom.songpilot.ai/agents/mcp/orchestrator/run"
             )
 
     def test_orchestrator_endpoint_with_trailing_slash(self, clear_settings_cache):
@@ -88,7 +88,7 @@ class TestSettings:
 
             assert (
                 settings.orchestrator_endpoint
-                == "https://api.songpilot.ai/mcp/orchestrator/run"
+                == "https://api.songpilot.ai/agents/mcp/orchestrator/run"
             )
 
     def test_effective_api_key_from_env(self, clear_settings_cache):

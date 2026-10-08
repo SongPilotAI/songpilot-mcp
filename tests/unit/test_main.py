@@ -44,7 +44,8 @@ class TestToolRegistration:
         tool_names = [tool.name for tool in tools]
 
         assert "run_orchestrator" in tool_names
-        assert len(tools) == 1
+        for excluded in ("submit", "distribut", "billing", "api_key", "setting"):
+            assert not any(excluded in name for name in tool_names)
 
     @pytest.mark.asyncio
     async def test_run_orchestrator_input_schema(self, mcp_server):
@@ -139,7 +140,7 @@ class TestMainEntryPoint:
         mock_settings = MagicMock()
         mock_settings.log_level = "INFO"
         mock_settings.workspace_id = "test-workspace-id"
-        mock_settings.base_url = "https://mcp.songpilot.ai"
+        mock_settings.base_url = "https://app.songpilot.ai"
 
         with (
             patch("songpilot_mcp.main.get_settings", return_value=mock_settings),

@@ -7,7 +7,8 @@ Architecture:
 -----------
 - Stdio transport: Runs locally on user's machine, communicates via stdin/stdout
 - HTTP client: Makes API calls to songpilot-agents service
-- Tool-based interface: Exposes orchestrator.run for all interactions
+- Tool-based interface: run_orchestrator for open requests, plus typed tools
+  (songpilot_mcp.tools) for direct reads and writes through the SongPilot API
 
 Deployment:
 -----------
@@ -20,34 +21,18 @@ Deployment:
 import sys
 from typing import Any
 
-from mcp.server.fastmcp import Context, FastMCP
+from mcp.server.fastmcp import Context
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+import songpilot_mcp.tools  # noqa: F401  registers the typed tools
 from songpilot_mcp.client import SongPilotError, get_client
 from songpilot_mcp.config import get_settings
 from songpilot_mcp.logging_config import get_logger, setup_logging
+from songpilot_mcp.server import mcp
 
 # Initialize logger
 logger = get_logger(__name__)
-
-# Create FastMCP server instance
-# Name shown in Claude Desktop and other MCP clients
-mcp = FastMCP(
-    "songpilot",
-    instructions="""
-    SongPilot AI - Your music career co-pilot.
-
-    This MCP server connects Claude to SongPilot's AI agent system, enabling:
-    - Artwork generation for songs, albums, and profiles
-    - Release planning and strategy
-    - Artist profile creation
-    - Content writing for social media
-    - Career management advice
-
-    Use the run_orchestrator tool to interact with SongPilot's AI agents.
-    """,
-)
 
 
 @mcp.custom_route("/health", methods=["GET"])
